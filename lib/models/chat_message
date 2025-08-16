@@ -1,0 +1,28 @@
+class ChatMessage {
+  final String id;
+  final String text;
+  final String senderId;
+  final DateTime sentAt;
+
+  ChatMessage({
+    required this.id,
+    required this.text,
+    required this.senderId,
+    required this.sentAt,
+  });
+
+  Map<String, dynamic> toMap() => {
+        'text': text,
+        'senderId': senderId,
+        'sentAt': sentAt.toUtc(),
+      };
+
+  factory ChatMessage.fromMap(String id, Map<String, dynamic> data) {
+    return ChatMessage(
+      id: id,
+      text: data['text'] ?? '',
+      senderId: data['senderId'] ?? '',
+      sentAt: (data['sentAt']?.toDate() as DateTime?) ?? DateTime.now().toUtc(),
+    );
+  }
+}
